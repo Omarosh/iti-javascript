@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="getData()">
+    <div id="users">
+        
+    </div>
+    <script>
+        async function getData(){
+        var resObj = await fetch("https://reqres.in/api/users?page=2");
+        var resBody = await resObj.json();
+
+        var usersArr = resBody.data;
+        var usersDiv = document.getElementById("users");
+        var usersHtml = usersArr.map(function (item){
+            return `
+                <h1>${item.last_name} ${item.first_name}</h1>
+                <h6>${item.email}</h1>
+                <img src="${item.avatar}" />
+            `;
+        })
+
+        var htmlCode = usersHtml.join("");
+
+
+        usersDiv.innerHTML=htmlCode;
+        }
+
+        getData();
+    </script>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style1.css">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function validatePassword(p) {
+            errors = [];
+            if (p.length < 8) {
+                //            errors.push("Your password must be at least 8 characters");
+                return 1;
+            }
+            if (p.search(/[a-z]/) < 0) {
+                //          errors.push("Your password must contain at least one letter.");
+                return 2;
+            }
+            if (p.search(/[A-Z]/) < 0) {
+                //          errors.push("Your password must contain at least one letter.");
+                return 3;
+            }
+            if (p.search(/[0-9]/) < 0) {
+                //      errors.push("Your password must contain at least one digit.");
+                return 4;
+            }
+            return 0;
+            // if (errors.length > 0) {
+            //     alert(errors.join("\n"));
+            //     return false;
+            // }
+        }
+        function handleSubmit() {
+            let usr = document.getElementById("usr");
+            let pass = document.getElementById("pass")
+
+
+            let data = {
+                "username": usr.value,
+                "password": pass.value
+            }
+
+            ///  let regex = /^ (?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,} $/;
+
+
+            let res = document.getElementById("result");
+            console.log(data)
+            let val = validatePassword(data.password);
+            res.setAttribute("class", "result2");
+            switch (val) {
+
+                case 0:
+                    res.setAttribute("class", "result1");
+                    res.innerHTML = "Welcome";
+                    break;
+                case 1:
+                    res.innerHTML = "Password should be at least 8 characters long";
+                    break;
+                case 2:
+                    res.innerHTML = "Password should have at least one small letter";
+                    break;
+                case 3:
+                    res.innerHTML = "Password should have at least one capital letter";
+                    break;
+                case 4:
+                    res.innerHTML = "Password should have at least 1 number";
+
+                    break;
+                default:
+                    break;
+
+            }
+
+
+        }
+
+    </script>
+    <div class="container">
+        <form>
+            <div class="row">
+                <label>Username: </label>
+                <input type="text" name="username" id="usr">
+            </div>
+
+            <div class="row">
+                <label>Password :</label>
+                <input type="text" name="password" id="pass">
+            </div>
+
+
+        </form>
+        <div class="row">
+            <button onclick="handleSubmit()">Submit</button>
+        </div>
+
+        <div>
+            <h3 id="result" class="result"> ................... </h3>
+        </div>
+    </div>
+</body>
+
+</html>

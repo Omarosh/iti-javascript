@@ -1,0 +1,51 @@
+/* (A) SHARED */
+#ctime *, #tpick * {
+  font-family: Calibri, sans-serif;
+  box-sizing: border-box;
+  text-align: center;
+}
+#ctime, #tpick, .square { padding: 10px; }
+#ctime, #tpick {
+  margin: 0 auto;
+  max-width: 350px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.header {
+  font-weight: normal;
+  width: 100%;
+  margin: 10px 0;
+}
+.square, #tpick-h, #tpick-m, #tpick-s { width: 33%; }
+.text, #tset, #treset { margin-top:10px; }
+.digits, .square select {
+  font-size: 24px;
+  background: #fff;
+  color: rgb(16, 0, 36);
+  border: 0;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px 0;
+}
+
+/* (B) CURRENT TIME */
+#ctime { background: rgb(19, 0, 61); }
+#ctime .header { color: #02fa86; }
+#ctime .text { color: #ddd; }
+
+/* (C) TIME PICKER */
+#tpick { background: #001a0e;
+color:rgb(211, 211, 211) }
+#tset, #treset {
+  width: 50%;
+  background: #008d4b;
+  color: #fff;
+  border: 0;
+  padding: 15px 0;
+  cursor: pointer;
+  font-size: 18px;
+}
+#tset:disabled, #treset:disabled {
+  background: #aaa;
+  color: #888;
+}

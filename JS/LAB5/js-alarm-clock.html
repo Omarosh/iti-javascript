@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    JS Day5 LAB AlarmClock
+  </title>
+  <link href="js-alarm-clock.css" rel="stylesheet">
+  <script defer src="js-alarm-clock.js"></script>
+</head>
+
+<body style="background-color: #b7ffff;">
+  <!-- Section 1 -->
+  <div id="ctime">
+    <h2 class="header">Digital Clock + Alarm</h2>
+    <div class="square">
+      <div class="digits" id="chr">00</div>
+      <p class="text">HR</p>
+    </div>
+    <div class="square">
+      <div class="digits" id="cmin">00</div>
+      <p class="text">MIN</p>
+    </div>
+    <div class="square">
+      <div class="digits" id="csec">00</div>
+      <p class="text">SEC</p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div id="tpick">
+    <h2 class="header">SET ALARM</h2>
+    <div id="tpick-h" class="square"></div>
+    <div id="tpick-m" class="square"></div>
+    <div id="tpick-s" class="square"></div>
+    <input type="button" value="Set" id="tset" />
+    <input type="button" value="Reset" id="treset" disabled />
+  </div>
+</body>
+
+</html>
