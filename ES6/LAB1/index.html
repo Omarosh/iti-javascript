@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ES6 LAB1</title>
+</head>
+
+<body>
+
+</body>
+
+
+<script>
+    const PI = 3.14;
+    class Shape {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        getCircum() {
+        }
+        getArea() {
+        }
+        log() {
+            this.constructor.name;
+        }
+        loadArea = () => {
+            let a = this.getArea();
+            this.p2.innerHTML = "Area: ".concat(a);
+            this.p2.addEventListener("click", function () {
+                console.log(this);
+            })
+            this.p2.addEventListener("dblclick", () => {
+                console.log(this);
+            })
+        }
+        loadCirc = () => {
+
+            let c = this.getCircum();
+            this.p1.innerHTML = "Circumference: ".concat(c);
+        }
+        displayEditor() {
+            this.p1 = document.createElement("p");
+            this.p1.innerHTML = "Circumference: ";
+            this.p2 = document.createElement("p");
+            this.p2.innerHTML = "Area: ";
+            const b1 = document.createElement("button");
+            b1.innerHTML = "Circumference";
+            b1.onclick = this.loadCirc;
+            const b2 = document.createElement("button");
+            b2.innerHTML = "Area";
+            b2.onclick = this.loadArea;
+            const divv = document.createElement("div");
+
+            divv.appendChild(this.p1);
+            divv.appendChild(this.p2);
+            divv.appendChild(b1);
+            divv.appendChild(b2);
+
+            document.body.appendChild(divv);
+
+        }
+
+    }
+    class Rectangle extends Shape {
+
+        constructor(x, y, Width, Height) {
+            if (y === undefined && Width === undefined && Height === undefined) {
+                //Copy from another object
+                super(x.x, x.y);
+                this.Width = x.Width;
+                this.Height = x.Height;
+            } else {
+                //Create new object from given props
+                super(x, y);
+                this.Width = Width;
+                this.Height = Height;
+            }
+
+        }
+        getCircum() {
+            return ((this.Width + this.Height) * 2)
+        }
+        getArea() {
+            return (this.Width * this.Height)
+        }
+        log() {
+            return this.constructor.name;
+        }
+
+    }
+    class Square extends Rectangle {
+        constructor(x, y, Length) {
+            if (y === undefined && Length === undefined) {
+                //Copy from another object
+                super(x.x, x.y, x.Length, x.Length);
+                this.Length = x.Length;
+            } else {
+                //Create new object from given props
+                super(x, y, Length, Length)
+                this.Length = Length;
+            }
+        }
+
+
+        getCircum() {
+            return ((this.Length + this.Length) * 2)
+        }
+        getArea() {
+            return (this.Length * this.Length)
+        }
+        log() {
+            return this.constructor.name;
+        }
+    }
+    class Oval extends Shape {
+        constructor(x, y, a, b) {
+            super(x, y)
+            this.a = a;
+            this.b = b;
+        }
+        getCircum() {
+            return (this.a * this.b * PI)
+        }
+        getArea() {
+            return ((this.a + this.b) * PI)
+        }
+        log() {
+            return this.constructor.name;
+        }
+    }
+    class Circle extends Oval {
+        constructor(x, y, a, b, r) {
+            super(x, y, a, b)
+            this.r = r;
+        }
+        getCircum() {
+            return (this.r * this.r * PI)
+        }
+        getArea() {
+            return ((this.r + this.r) * PI)
+        }
+        log() {
+            return this.constructor.name;
+        }
+    }
+    class DrawArea {
+        constructor() {
+            this.drawArea = [];
+        }
+        log() {
+            this.constructor.name;
+        }
+        add(Shape) {
+            this.drawArea.push(Shape);
+            return Shape
+        }
+    }
+    const Rect = new Rectangle(0, 0, 10, 5);
+    const Rect2 = new Rectangle(Rect);
+    const Squ = new Square(0, 0, 10, 5, 5);
+    const Ov = new Oval(0, 0, 10, 5);
+    const Circ = new Circle(0, 0, 10, 5, 5);
+    const ShapeArr = new DrawArea();
+
+    ShapeArr.add(Rect);
+
+    ShapeArr.add(Squ);
+    ShapeArr.add(Ov);
+    ShapeArr.add(Circ);
+    ShapeArr.add(Rect2);
+
+    Rect.displayEditor();
+
+    for (let shape of ShapeArr.drawArea) {
+        console.log("Circumference: " + shape.getCircum() + ", Area = " + shape.getArea() + ", Type =" + shape.log())
+    }
+</script>
+
+</html>

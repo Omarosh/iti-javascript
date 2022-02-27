@@ -1,0 +1,203 @@
+class ToDoList {
+  constructor() {
+    this. taskInput = document.getElementById("new-task"); 
+    this. addButton = document.getElementsByTagName("button")[0];
+    this. incompleteTasksHolder = document.getElementById("incomplete-tasks"); 
+    this. completedTasksHolder = document.getElementById("completed-tasks"); 
+    
+    this. incArray = [];
+    this.comArray = [];
+
+
+    this.addButton.addEventListener("click", this.addTask);
+    this.taskInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          this.addTask();
+        }
+    });
+
+    for (var i = 0; i < this.incompleteTasksHolder.children.length; i ++) {
+      this.bindTaskEvents(this.incompleteTasksHolder.children[i], this.taskCompleted);
+    }
+    
+    for (var i = 0; i < this.completedTasksHolder.children.length; i ++) {
+      this.bindTaskEvents(this.completedTasksHolder.children[i], this.taskIncomplete);
+    }
+    this.init();
+  }
+
+ init = () =>{
+  this.incArray = JSON.parse(window.localStorage.getItem('inc'));
+  this.comArray = JSON.parse(window.localStorage.getItem('com'));
+  if(this.incArray === null)
+    this.incArray = [];
+  if(this.comArray === null)
+    this.comArray = [];
+    console.log(12);
+    console.log(this.incArray);
+    console.log(this.comArray);
+  this.incArray.forEach(element => {
+    this.loadTask(element);
+  });
+  this.comArray.forEach(element => {
+    let listItem = this.loadTask(element);
+    listItem.getElementsByTagName("button")[0].disabled = true;
+    listItem.getElementsByTagName("input")[0].checked = true;
+   this.completedTasksHolder.appendChild(listItem);
+   this.bindTaskEvents(listItem, this.taskIncomplete);
+  });
+}
+
+updateLocalStorage(){
+  window.localStorage.setItem('inc', JSON.stringify(this.incArray));
+  window.localStorage.setItem('com', JSON.stringify(this.comArray));
+}
+
+
+ createNewTaskElement = function(taskString) {
+  var listItem = document.createElement("li");
+  var checkBox = document.createElement("input");
+  var label = document.createElement("label");
+  
+  checkBox.type = "checkBox";
+  var deleteButton = document.createElement("button");
+
+  deleteButton.innerText = "Delete";
+  deleteButton.className = "delete";
+
+  label.innerText = taskString;
+
+  listItem.appendChild(checkBox);
+  listItem.appendChild(label);
+  listItem.appendChild(deleteButton);
+
+	return listItem;
+}
+
+ onlySpaces(str) {
+    return /^\s*$/.test(str);
+  }
+
+
+loadTask = (str) => {
+        console.log("Load...");
+        console.log(3333333333);
+        console.log(str);
+        console.log(this.incArray);
+       
+        var listItem = this.createNewTaskElement(str);
+        this.incompleteTasksHolder.appendChild(listItem);
+        this.bindTaskEvents(listItem, this.taskCompleted);
+        document.getElementById("text").innerHTML = "";
+        return listItem;
+  }
+
+ addTask = () => {
+    if(this.taskInput.value != "" && !this.onlySpaces(this.taskInput.value)){
+        console.log("Add Task...");
+        this.incArray.push(this.taskInput.value);
+        console.log(3333333333);
+        console.log(this.incArray);
+        this.updateLocalStorage();
+        var listItem = this.createNewTaskElement(this.taskInput.value);
+      
+        this.incompleteTasksHolder.appendChild(listItem);
+        this.bindTaskEvents(listItem, this.taskCompleted);
+        this.taskInput.value = "";
+        document.getElementById("text").innerHTML = "";
+    }else{
+        document.getElementById("text").innerHTML = "invalid input";
+    }
+  
+}
+
+ deleteTask = function (obj) {
+    console.log("Delete Task...");
+    var listItem = this.parentNode;
+    var ul = listItem.parentNode;
+
+    let temp =  listItem.getElementsByTagName("label")[0].textContent;
+    
+
+
+    for(let i =0; i<this.incArray.length; i++){
+      if(temp === this.incArray[i]){
+        this.incArray.splice(i,1);
+        break;
+      }
+    }
+
+    console.log(111);
+    console.log(this.incArray);
+    console.log(this.comArray);
+
+    this.updateLocalStorage();
+    ul.removeChild(listItem);
+}
+
+ taskCompleted = function() {
+   console.log("Task Complete...");
+   
+   var listItem = this.parentNode;
+   let temp =  listItem.getElementsByTagName("label")[0].textContent;
+
+   for(let i =0; i<this.incArray.length; i++){
+    if(temp === this.incArray[i]){
+      this.incArray.splice(i,1);
+      break;
+    }
+  }
+  this.comArray.push(temp);
+  console.log(111);
+  console.log(this.incArray);
+  console.log(this.comArray);
+  this.updateLocalStorage();
+  
+  listItem.getElementsByTagName("button")[0].disabled = true;
+   this.completedTasksHolder.appendChild(listItem);
+   this.bindTaskEvents(listItem, this.taskIncomplete);
+}
+
+
+taskIncomplete = function() {
+  console.log("Task Incomplete...");
+  var listItem = this.parentNode;
+
+  let temp =  listItem.getElementsByTagName("label")[0].textContent;
+   
+   for(let i =0; i<this.comArray.length; i++){
+    if(temp === this.comArray[i]){
+      this.comArray.splice(i,1);
+      break;
+    }
+  }
+  this.incArray.push(temp);
+  console.log(111);
+  console.log(this.incArray);
+  console.log(this.comArray);
+  this.updateLocalStorage();
+
+  listItem.getElementsByTagName("button")[0].disabled = false;
+  this.incompleteTasksHolder.appendChild(listItem);
+  this.bindTaskEvents(listItem, this.taskCompleted);
+}
+
+
+
+
+
+bindTaskEvents = function(taskListItem, checkBoxEventHandler) {
+  	console.log("Bind List item events");
+  	var checkBox = taskListItem.querySelector('input[type="checkbox"]');
+      var deleteButton = taskListItem.querySelector("button.delete");
+
+      deleteButton.onclick = this.deleteTask;
+  	checkBox.onchange = checkBoxEventHandler;
+  
+}
+
+  
+}
+
+
+let todo =  new ToDoList();
