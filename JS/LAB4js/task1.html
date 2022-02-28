@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style1.css">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function handleSubmit() {
+            let usr = document.getElementById("usr");
+            let pass = document.getElementById("pass")
+            let data = {
+                "username": usr.value,
+                "password": pass.value
+            }
+            let res = document.getElementById("result");
+            console.log(data)
+            if (data.username == "admin" && data.password == "123") {
+                res.setAttribute("class", "result1");
+                res.innerHTML = "Welcome";
+            } else {
+                res.setAttribute("class", "result2");
+                res.innerHTML = "Not registered";
+            }
+
+        }
+
+    </script>
+    <div class="container">
+        <form>
+            <div class="row">
+                <label>Username: </label>
+                <input type="text" name="username" id="usr">
+            </div>
+
+            <div class="row">
+                <label>Password :</label>
+                <input type="text" name="password" id="pass">
+            </div>
+
+
+        </form>
+        <div class="row">
+            <button onclick="handleSubmit()">Submit</button>
+        </div>
+
+        <div>
+            <h3 id="result" class="result"> ................... </h3>
+        </div>
+    </div>
+</body>
+
+</html>

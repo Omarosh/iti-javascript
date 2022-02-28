@@ -1,0 +1,52 @@
+.container{
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: beige;
+    border-style: double;
+}
+
+.row{
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+button{
+    color: red;
+    padding: 5px;
+    font-size: 20px;
+    width: fit-content;
+    position: relative;
+    left: 35%;
+    margin-bottom: 15px;
+}
+label{
+    font-size: 18px;
+}
+input{
+    width: 150px;
+}
+.result{
+    font-size: 15px;
+    padding: 5px;
+    background-color: white;
+    color: white;
+    text-align: center;
+}
+.result1{
+    font-size: 15px;
+    padding: 5px;
+    background-color: green;
+    color: white;
+    text-align: center;
+}
+.result2{
+    font-size: 15px;
+    padding: 5px;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
